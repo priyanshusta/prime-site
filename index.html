@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>PRIME — My Personal Operating System</title>
+
+<meta name="description" content="A day-planner built by a founder for his own day. Your schedule, alarms, tasks and notes live on your phone — no account, no cloud, works offline. Free Android download." />
+<meta name="theme-color" content="#FBF9F5" />
+<link rel="icon" href="assets/logo.png" />
+<link rel="apple-touch-icon" href="assets/logo.png" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="PRIME — My Personal Operating System" />
+<meta property="og:description" content="Answers two questions, all day: what should I be doing now, and what must I not forget. Built for founders. Runs entirely on your phone." />
+<meta property="og:image" content="assets/logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+<!-- Fills as you scroll. The only chrome that moves. -->
+<div class="scroll-rail"><div class="scroll-rail__fill" id="scrollFill"></div></div>
+
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top">
+    <img src="assets/logo.png" alt="" width="34" height="34" />
+    <span>PRIME</span>
+  </a>
+  <nav class="nav__links">
+    <a href="#what">What it does</a>
+    <a href="#alarms">Alarms</a>
+    <a href="#private">Privacy</a>
+  </nav>
+  <a class="btn btn--sm" href="#download">Download</a>
+</header>
+
+<main id="top">
+
+  <!-- ─────────────────────────────────────────────────────────── hero ── -->
+  <section class="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+
+    <div class="hero__inner">
+      <p class="eyebrow reveal">Built for founders · Android</p>
+
+      <h1 class="hero__title reveal" style="--d:.05s">
+        Your day,<br /><span class="grad">assembled.</span>
+      </h1>
+
+      <p class="hero__lede reveal" style="--d:.12s">
+        I run a company. My days are calls, meetings, and the deep work that
+        actually moves the business forward — and the hard part was never the
+        work itself. It was knowing, at any given minute, which of them I should
+        be in. So I built the tool I needed. PRIME answers
+        <mark>what should I be doing now</mark> and
+        <mark>what must I not forget</mark> — and stays out of the way the rest
+        of the time.
+      </p>
+
+      <div class="hero__actions reveal" style="--d:.2s">
+        <a class="btn btn--lg" href="#download">
+          <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path fill="currentColor" d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+          Download for Android
+        </a>
+        <a class="btn btn--ghost btn--lg" href="#what">See how it works</a>
+      </div>
+
+      <p class="hero__meta reveal" style="--d:.26s">
+        Free · No account · Works offline · ~23&nbsp;MB
+      </p>
+    </div>
+
+    <!-- The day ring, drawn live: the same mark as the app icon and the app's
+         own opening animation. -->
+    <div class="hero__ring reveal" style="--d:.1s">
+      <canvas id="dayRing" width="620" height="620" aria-label="A ring of twenty-four hours, each coloured by the kind of work that fills it"></canvas>
+      <div class="hero__ringLabel">
+        <strong>PRIME</strong>
+        <span>My Personal Operating System</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────────────────────────────────── the problem ── -->
+  <section class="band">
+    <div class="wrap narrow center">
+      <h2 class="reveal"><span class="muted">A calendar tells you what you agreed to.</span><br />
+        <span class="brand">PRIME</span> tells you what to do right now.</h2>
+      <p class="lede reveal" style="--d:.08s">
+        Founders do not fail on their calendar. They fail in the gaps — the ten
+        minutes between things, the block that quietly ran forty minutes long,
+        the thing they promised on a call and never wrote down. PRIME is built
+        for those gaps.
+      </p>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────────────────────── what ── -->
+  <section id="what" class="band band--tint">
+    <div class="wrap">
+      <p class="eyebrow reveal">What it does</p>
+      <h2 class="reveal" style="--d:.05s">Five screens. Not one of them a dashboard.</h2>
+
+      <div class="split">
+        <div class="split__text">
+          <ul class="features">
+            <li class="reveal" style="--d:.05s">
+              <span class="dot" style="--c:var(--indigo)"></span>
+              <div><strong>Home</strong>
+                <p>NOW, NEXT, IMPORTANT, TODAY. It fits on one screen because
+                  everything else was moved somewhere it belongs.</p></div>
+            </li>
+            <li class="reveal" style="--d:.1s">
+              <span class="dot" style="--c:var(--amber)"></span>
+              <div><strong>Schedule</strong>
+                <p>Your whole day as a timeline. Blocks are recurrence rules,
+                  not one-off appointments — set a morning once and it is there
+                  every morning.</p></div>
+            </li>
+            <li class="reveal" style="--d:.15s">
+              <span class="dot" style="--c:var(--sage)"></span>
+              <div><strong>Tasks</strong>
+                <p>All-day or timed, with priority. Today's surface on Home,
+                  ordered by how close they are to biting you.</p></div>
+            </li>
+            <li class="reveal" style="--d:.2s">
+              <span class="dot" style="--c:var(--terracotta)"></span>
+              <div><strong>Notes</strong>
+                <p>Sticky notes you can pin to your phone's home screen as a
+                  widget, so the thing you must not forget is not behind an
+                  app icon.</p></div>
+            </li>
+            <li class="reveal" style="--d:.25s">
+              <span class="dot" style="--c:var(--violet)"></span>
+              <div><strong>More</strong>
+                <p>Focus, meditation, breathing and workout timers. Progress.
+                  Settings. The things you want occasionally, kept out of the
+                  way of the things you want constantly.</p></div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="split__shots">
+          <div class="phone reveal phone--back" style="--d:.12s">
+            <img src="assets/shots/schedule.png?v=e0da9021" alt="The PRIME schedule screen, showing the day as a vertical timeline of coloured blocks" loading="lazy" />
+          </div>
+          <div class="phone reveal phone--front" style="--d:.04s">
+            <img src="assets/shots/home.png?v=6a0c5bc8" alt="The PRIME home screen: the block running now with a progress bar, what is next, and the day's totals" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────────── alarms ── -->
+  <section id="alarms" class="band">
+    <div class="wrap">
+      <p class="eyebrow reveal">The part that has to work</p>
+      <h2 class="reveal" style="--d:.05s"><span class="muted">An alarm that depends on a network</span><br />
+        is an alarm that eventually <span class="brand">doesn't ring.</span></h2>
+
+      <div class="cards">
+        <article class="card reveal" style="--d:.05s">
+          <h3>Fires with everything off</h3>
+          <p>App closed, phone locked, aeroplane mode, no signal. Alarms are
+            scheduled by Android itself, on the device. There is no server
+            involved and nothing to be offline from.</p>
+        </article>
+        <article class="card reveal" style="--d:.1s">
+          <h3>Survives a reboot</h3>
+          <p>The schedule is re-armed on boot, on app update, and on any change
+            to the clock or timezone — rebuilt from wall-clock time, so 07:00
+            stays 07:00 after a flight instead of firing an hour out.</p>
+        </article>
+        <article class="card reveal" style="--d:.15s">
+          <h3>A bar on your lock screen</h3>
+          <p>What you are in, how long is left, a progress bar that fills, what
+            is next, and today's tasks as rows you can tick off — without
+            unlocking or opening anything.</p>
+        </article>
+        <article class="card reveal" style="--d:.2s">
+          <h3>A tone per kind of thing</h3>
+          <p>Deep work does not sound like lunch. Eleven built-in tones, or
+            pick any alarm sound or song already on your phone.</p>
+        </article>
+      </div>
+
+      <div class="note reveal" style="--d:.1s">
+        <strong>Honest about the ceiling.</strong>
+        Vivo, Xiaomi, Oppo, Huawei, Samsung and OnePlus each add a battery
+        manager that can stop background apps, and no app can check or change
+        those settings for you. PRIME's setup screen opens the right page on
+        your phone and tells you what to switch on — and never claims something
+        is done when it cannot verify it.
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────── privacy ── -->
+  <section id="private" class="band band--dark">
+    <div class="wrap narrow center">
+      <p class="eyebrow reveal">Privacy</p>
+      <h2 class="reveal" style="--d:.05s">There is no account,<br />because there is no server.</h2>
+      <p class="lede reveal" style="--d:.1s">
+        Your schedule, alarms, tasks and notes are stored on your phone and
+        nowhere else. Nothing is uploaded. There is no sign-up, no email
+        required, no analytics, and no way for me to see your day — the app
+        does not have the code to send it anywhere.
+      </p>
+      <p class="lede reveal" style="--d:.15s">
+        Uninstalling takes your data with it. That is the trade, stated plainly:
+        no cloud backup, and nothing to leak.
+      </p>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────────────────── download ── -->
+  <section id="download" class="band">
+    <div class="wrap narrow center">
+      <p class="eyebrow reveal">Download</p>
+      <h2 class="reveal" style="--d:.05s">Install it on your phone</h2>
+
+      <div class="dl reveal" style="--d:.1s">
+        <a class="btn btn--lg" id="dlMain" href="https://github.com/priyanshusta/prime-site/releases/latest/download/PRIME-arm64.apk">
+          <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path fill="currentColor" d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
+          PRIME for Android
+        </a>
+        <p class="dl__meta">~23&nbsp;MB · Android 7.0 and newer · 64-bit</p>
+        <p class="dl__alt">
+          Older 32-bit phone?
+          <a href="https://github.com/priyanshusta/prime-site/releases/latest/download/PRIME-arm32.apk">Download the 32-bit build</a>
+        </p>
+      </div>
+
+      <ol class="steps">
+        <li class="reveal" style="--d:.05s"><span>1</span>
+          <div><strong>Download the file</strong>
+            <p>Your browser may warn you — it does that for every file that is
+              not from the Play Store.</p></div></li>
+        <li class="reveal" style="--d:.1s"><span>2</span>
+          <div><strong>Open it and allow installation</strong>
+            <p>Android will ask permission to install from your browser or file
+              manager. This is the normal sideloading prompt.</p></div></li>
+        <li class="reveal" style="--d:.15s"><span>3</span>
+          <div><strong>Run through setup once</strong>
+            <p>Pick a starting schedule, then allow notifications and battery
+              exemption so alarms can actually fire. Two minutes.</p></div></li>
+      </ol>
+
+      <p class="fineprint reveal">
+        PRIME is not on the Play Store. It is distributed directly, free, with
+        no ads, no tracking and no in-app purchases.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────────── made ── -->
+  <section class="band band--tint">
+    <div class="wrap narrow center">
+      <h2 class="reveal">Why this exists</h2>
+      <p class="lede reveal" style="--d:.08s">
+        I tried the calendars, the task managers and the productivity systems.
+        Every one of them wanted me to maintain it — and a tool you have to
+        maintain is just one more thing on the list. Running a company does not
+        leave room for that.
+      </p>
+      <p class="lede reveal" style="--d:.14s">
+        So PRIME does the opposite. You set your day once. After that it tells
+        you what you should be in, rings when it changes, and asks nothing of
+        you in between.
+      </p>
+      <p class="lede reveal" style="--d:.2s">
+        It is free. I built it for my own day, and a tool like this is only
+        worth anything if it is the one you actually keep open. If it earns a
+        place in yours, that is the whole point.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <img src="assets/logo.png" alt="" width="40" height="40" />
+      <div>
+        <strong>PRIME</strong>
+        <span>My Personal Operating System</span>
+      </div>
+    </div>
+    <div class="footer__meta">
+      <p>Released under the MIT Licence. Provided as-is, with no warranty —
+        please do not rely on it as your only alarm for something critical
+        until you have tested it on your own phone.</p>
+      <p class="footer__copy">© <span id="year">2026</span> ~Priyanshu · <a href="LICENSE">Licence</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

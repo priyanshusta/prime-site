@@ -1,0 +1,443 @@
+/* PRIME — marketing site
+ *
+ * The palette is the app's: paper rather than white, soft ink rather than
+ * black, and one hue per kind of activity. Roughly 90% neutral; colour is used
+ * where it carries meaning and nowhere else.
+ *
+ * No framework and no build step — one stylesheet, served straight from GitHub
+ * Pages. The whole site is three files.
+ */
+
+:root {
+  --paper:        #FBF9F5;
+  --paper-warm:   #F5F1E8;
+  --card:         #FFFFFF;
+  --ink:          #22252B;
+  --ink-soft:     #565C66;
+  --ink-faint:    #8A9099;
+  --line:         #E8E3D9;
+
+  --sage:         #4F8E7C;
+  --sage-deep:    #3A6E60;
+  --terracotta:   #D97551;
+  --indigo:       #5E6AB8;
+  --amber:        #D99A2B;
+  --violet:       #7E6BB0;
+
+  --radius:       18px;
+  --radius-sm:    12px;
+  --gutter:       clamp(20px, 5vw, 56px);
+  --maxw:         1180px;
+
+  --shadow:       0 1px 2px rgba(34,37,43,.04), 0 8px 24px rgba(34,37,43,.06);
+  --shadow-lg:    0 2px 4px rgba(34,37,43,.04), 0 24px 60px rgba(34,37,43,.12);
+
+  --ease:         cubic-bezier(.22,.61,.36,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--sage-deep); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+h1, h2, h3 {
+  margin: 0;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+h2 { font-size: clamp(30px, 4.6vw, 50px); font-weight: 800; letter-spacing: -0.032em; }
+h3 { font-size: 19.5px; letter-spacing: -0.012em; font-weight: 700; }
+p  { margin: 0; }
+
+.wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.narrow { max-width: 780px; }
+.center { text-align: center; }
+.muted { color: var(--ink-faint); font-weight: 700; }
+
+/* The word the sentence turns on. Gradient rather than a flat accent so it
+   carries at heading size without shouting. */
+.brand {
+  background: linear-gradient(100deg, var(--sage) 0%, var(--indigo) 58%, var(--amber) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
+.eyebrow {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  margin-bottom: 14px;
+}
+
+.lede {
+  font-size: clamp(16.5px, 1.6vw, 19.5px);
+  color: var(--ink-soft);
+  margin-top: 20px;
+  line-height: 1.68;
+  max-width: 62ch;
+}
+.lede + .lede { margin-top: 15px; }
+.center .lede { margin-inline: auto; }
+
+/* ─────────────────────────────────────────────────── scroll progress ── */
+
+.scroll-rail {
+  position: fixed; inset: 0 0 auto 0;
+  height: 2px; z-index: 100;
+  background: transparent; pointer-events: none;
+}
+.scroll-rail__fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--sage), var(--indigo), var(--amber));
+  transition: width .08s linear;
+}
+
+/* ──────────────────────────────────────────────────────────────── nav ── */
+
+.nav {
+  position: sticky; top: 0; z-index: 90;
+  display: flex; align-items: center; gap: 24px;
+  padding: 14px var(--gutter);
+  background: rgba(251,249,245,.72);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s var(--ease), background .3s var(--ease);
+}
+.nav.is-stuck { border-bottom-color: var(--line); }
+
+.nav__brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; letter-spacing: .1em; font-size: 15px;
+  color: var(--ink); text-decoration: none;
+}
+.nav__brand img { border-radius: 8px; }
+
+.nav__links { display: flex; gap: 26px; margin-left: auto; }
+.nav__links a {
+  color: var(--ink-soft); text-decoration: none;
+  font-size: 15px; font-weight: 500;
+  transition: color .2s var(--ease);
+}
+.nav__links a:hover { color: var(--ink); }
+
+/* ───────────────────────────────────────────────────────────── buttons ── */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 11px 20px;
+  border-radius: 999px; border: 1px solid transparent;
+  background: var(--sage); color: #fff;
+  font: inherit; font-weight: 600; font-size: 15px;
+  text-decoration: none; white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(34,37,43,.08), 0 6px 18px rgba(79,142,124,.28);
+  transition: transform .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease);
+}
+.btn:hover {
+  background: var(--sage-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(34,37,43,.08), 0 12px 28px rgba(79,142,124,.34);
+}
+.btn:active { transform: translateY(0); }
+.btn--sm { padding: 8px 16px; font-size: 14px; }
+.btn--lg { padding: 15px 28px; font-size: 16.5px; }
+.btn--ghost {
+  background: transparent; color: var(--ink);
+  border-color: var(--line); box-shadow: none;
+}
+.btn--ghost:hover { background: var(--card); border-color: var(--ink-faint); box-shadow: var(--shadow); }
+
+/* ─────────────────────────────────────────────────────────────── hero ── */
+
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: clamp(20px, 5vw, 72px);
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding: clamp(32px, 7vh, 96px) var(--gutter) clamp(40px, 8vh, 112px);
+}
+
+/* A soft field of colour behind the hero — the same hues the app uses, at a
+   low enough opacity to read as light rather than as decoration. */
+.hero__glow {
+  position: absolute; inset: -10% -20% 0 -20%;
+  z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(38% 42% at 18% 26%, rgba(79,142,124,.20), transparent 70%),
+    radial-gradient(34% 40% at 82% 24%, rgba(94,106,184,.16), transparent 70%),
+    radial-gradient(40% 44% at 72% 78%, rgba(217,154,43,.15), transparent 70%),
+    radial-gradient(30% 36% at 26% 82%, rgba(217,117,81,.12), transparent 70%);
+  filter: blur(6px);
+}
+
+.hero__title {
+  font-size: clamp(42px, 6.6vw, 82px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 6px;
+}
+.grad {
+  background: linear-gradient(105deg, var(--sage) 0%, var(--indigo) 52%, var(--amber) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+.hero__lede {
+  font-size: clamp(16.5px, 1.75vw, 20px);
+  color: var(--ink-soft);
+  margin-top: 22px;
+  max-width: 52ch;
+  line-height: 1.62;
+}
+.hero__lede strong { color: var(--ink); font-weight: 600; }
+
+/* The two questions the whole product answers. Weighted and underlined so they
+   carry even when the paragraph around them is skimmed — which it will be. */
+mark {
+  background: none;
+  color: var(--ink);
+  font-weight: 700;
+  white-space: nowrap;
+  padding-bottom: 1px;
+  box-shadow: inset 0 -0.42em 0 color-mix(in srgb, var(--amber) 26%, transparent);
+}
+@media (max-width: 520px) { mark { white-space: normal; } }
+
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hero__meta { margin-top: 16px; font-size: 14px; color: var(--ink-faint); }
+
+.hero__ring { position: relative; display: grid; place-items: center; }
+.hero__ring canvas { width: 100%; max-width: 480px; height: auto; }
+.hero__ringLabel {
+  position: absolute; text-align: center; display: grid; gap: 6px;
+}
+.hero__ringLabel strong {
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 700; letter-spacing: .34em; text-indent: .34em;
+}
+.hero__ringLabel span { font-size: clamp(11px, 1.2vw, 13px); color: var(--ink-faint); }
+
+/* ────────────────────────────────────────────────────────────── bands ── */
+
+.band { padding: clamp(56px, 8.5vh, 124px) 0; }
+.band--tint { background: var(--paper-warm); }
+.band--dark {
+  background: #191C21; color: #F5F4F1;
+}
+.band--dark .eyebrow { color: #7FB8A4; }
+.band--dark .lede { color: #A9AFB8; }
+.band--dark h2 { color: #F5F4F1; }
+
+/* ─────────────────────────────────────────────────────────────── split ── */
+
+.split {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 84px); align-items: center;
+  margin-top: 52px;
+}
+
+.features { list-style: none; margin: 0; padding: 0; display: grid; gap: 26px; }
+.features li { display: flex; gap: 16px; }
+.features .dot {
+  flex: none; width: 10px; height: 10px; margin-top: 9px;
+  border-radius: 50%; background: var(--c);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 16%, transparent);
+}
+.features strong {
+  display: block;
+  font-size: 18px; font-weight: 700;
+  letter-spacing: -0.012em;
+  margin-bottom: 4px;
+}
+.features p { color: var(--ink-soft); font-size: 15.5px; line-height: 1.62; }
+
+/* ────────────────────────────────────────────────────── phone mockups ── */
+
+.split__shots { position: relative; display: grid; place-items: center; min-height: 540px; }
+
+.phone {
+  border-radius: 36px;
+  border: 10px solid #1C1F24;
+  overflow: hidden;
+  background: #1C1F24;
+  box-shadow: var(--shadow-lg);
+  width: min(272px, 64vw);
+}
+.phone img { border-radius: 26px; }
+/* Positioned with the independent `translate` / `rotate` / `scale` properties
+   rather than `transform`, because `.reveal.is-in` sets `transform: none` and
+   out-specifies these — which silently stacked both phones in one spot. */
+/* Home sits in front and unobstructed — it is the screen that explains the
+   product. Schedule peeks out behind it, far enough to be readable rather than
+   a sliver. */
+.phone--front {
+  position: relative; z-index: 2;
+  translate: -14% 4%;
+}
+.phone--back {
+  position: absolute; z-index: 1;
+  translate: 30% -12%;
+  rotate: 5deg;
+  scale: .94;
+  filter: saturate(.92) brightness(.99);
+}
+
+/* ─────────────────────────────────────────────────────────────── cards ── */
+
+.cards {
+  display: grid; gap: 18px; margin-top: 48px;
+  grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px 24px;
+  box-shadow: var(--shadow);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.card h3 { margin-bottom: 9px; }
+.card p { color: var(--ink-soft); font-size: 15.5px; line-height: 1.6; }
+
+.note {
+  margin-top: 30px; padding: 22px 24px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--amber) 10%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--amber) 26%, transparent);
+  color: var(--ink-soft); font-size: 15.5px; line-height: 1.65;
+}
+.note strong { color: var(--ink); display: block; margin-bottom: 4px; }
+
+/* ──────────────────────────────────────────────────────────── download ── */
+
+.dl { margin-top: 34px; display: grid; justify-items: center; gap: 10px; }
+.dl__meta { font-size: 14px; color: var(--ink-faint); }
+.dl__alt { font-size: 14.5px; color: var(--ink-soft); }
+
+.steps {
+  list-style: none; margin: 52px 0 0; padding: 0;
+  display: grid; gap: 16px; text-align: left;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.steps li {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 22px 20px;
+}
+.steps span {
+  flex: none; width: 27px; height: 27px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--sage); color: #fff;
+  font-size: 13.5px; font-weight: 700;
+}
+.steps strong { display: block; margin-bottom: 3px; font-size: 16px; }
+.steps p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; }
+
+.fineprint { margin-top: 34px; font-size: 14px; color: var(--ink-faint); }
+
+/* ────────────────────────────────────────────────────────────── footer ── */
+
+.footer { background: #191C21; color: #A9AFB8; padding: 56px 0 44px; }
+.footer__inner {
+  display: flex; flex-wrap: wrap; gap: 32px;
+  align-items: flex-start; justify-content: space-between;
+}
+.footer__brand { display: flex; gap: 13px; align-items: center; }
+.footer__brand img { border-radius: 10px; }
+.footer__brand strong {
+  display: block; color: #F5F4F1;
+  letter-spacing: .12em; font-size: 15px;
+}
+.footer__brand span { font-size: 13.5px; }
+.footer__meta { max-width: 46ch; font-size: 13.5px; line-height: 1.65; display: grid; gap: 12px; }
+.footer__copy { color: #6E757F; }
+.footer a { color: #7FB8A4; }
+
+/* ─────────────────────────────────────────────── scroll-in animation ── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .7s var(--ease) var(--d, 0s),
+              transform .7s var(--ease) var(--d, 0s);
+  will-change: opacity, transform;
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* ───────────────────────────────────────────────────────── responsive ── */
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 24px; text-align: center; }
+  .hero__lede { margin-inline: auto; }
+  .hero__actions { justify-content: center; }
+  .hero__ring { order: -1; margin-bottom: 0; }
+  .hero__ring canvas { max-width: 300px; }
+
+  .split { grid-template-columns: 1fr; gap: 24px; margin-top: 34px; }
+  .split__shots { order: -1; min-height: 0; }
+
+  .nav__links { display: none; }
+  .nav__brand { margin-right: auto; }
+}
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+
+  /* Phones sit side by side rather than stacked-and-rotated: at this width the
+     overlap left the back one as an unreadable sliver, and the absolute
+     positioning reserved a block of empty space under it. */
+  .split__shots {
+    min-height: 0;
+    grid-auto-flow: column;
+    gap: 0;
+    padding-block: 4px;
+  }
+  .phone { width: min(190px, 50vw); border-width: 7px; }
+  .phone--front { translate: 7% 0; rotate: -2deg; }
+  .phone--back {
+    position: relative;
+    translate: -7% 0;
+    rotate: 3deg;
+    scale: .9;
+  }
+
+  .hero__ring canvas { max-width: 250px; }
+  .hero__title { font-size: clamp(38px, 11.5vw, 54px); }
+  .hero__actions { gap: 10px; width: 100%; }
+  .hero__actions .btn { width: 100%; }
+
+  .steps li { padding: 18px 16px; }
+  .cards { gap: 14px; margin-top: 32px; }
+  .card { padding: 22px 20px; }
+  .note { padding: 20px; }
+  .features { gap: 22px; }
+}
+
+/* Some people find scroll-triggered motion genuinely unpleasant. Honour the
+   setting rather than overriding it: everything is simply already in place. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .btn, .card { transition: none; }
+}
