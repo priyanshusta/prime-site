@@ -37,7 +37,12 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* Anchor links land the heading below the sticky nav instead of underneath
+     it. Without this, jumping to a section hides its own title. */
+  scroll-padding-top: 78px;
+}
 
 body {
   margin: 0;
@@ -72,10 +77,15 @@ p  { margin: 0; }
 /* The word the sentence turns on. Gradient rather than a flat accent so it
    carries at heading size without shouting. */
 .brand {
-  background: linear-gradient(100deg, var(--sage) 0%, var(--indigo) 58%, var(--amber) 100%);
-  -webkit-background-clip: text; background-clip: text;
-  color: transparent;
+  color: var(--sage-deep);
   font-weight: 800;
+}
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .brand {
+    background: linear-gradient(100deg, var(--sage) 0%, var(--indigo) 58%, var(--amber) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
 }
 
 .eyebrow {
@@ -116,9 +126,11 @@ p  { margin: 0; }
   position: sticky; top: 0; z-index: 90;
   display: flex; align-items: center; gap: 24px;
   padding: 14px var(--gutter);
-  background: rgba(251,249,245,.72);
-  backdrop-filter: saturate(180%) blur(14px);
-  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  /* Opaque enough that text scrolling underneath reads as passing behind a
+     surface rather than bleeding through it. */
+  background: rgba(251,249,245,.92);
+  backdrop-filter: saturate(180%) blur(18px);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
   border-bottom: 1px solid transparent;
   transition: border-color .3s var(--ease), background .3s var(--ease);
 }
@@ -197,10 +209,13 @@ p  { margin: 0; }
   letter-spacing: -0.04em;
   margin-bottom: 6px;
 }
-.grad {
-  background: linear-gradient(105deg, var(--sage) 0%, var(--indigo) 52%, var(--amber) 100%);
-  -webkit-background-clip: text; background-clip: text;
-  color: transparent;
+.grad { color: var(--sage-deep); }
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .grad {
+    background: linear-gradient(105deg, var(--sage) 0%, var(--indigo) 52%, var(--amber) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
 }
 .hero__lede {
   font-size: clamp(16.5px, 1.75vw, 20px);
@@ -239,7 +254,7 @@ mark {
 
 /* ────────────────────────────────────────────────────────────── bands ── */
 
-.band { padding: clamp(56px, 8.5vh, 124px) 0; }
+.band { padding: clamp(56px, 8.5vh, 124px) 0; scroll-margin-top: 70px; }
 .band--tint { background: var(--paper-warm); }
 .band--dark {
   background: #191C21; color: #F5F4F1;
