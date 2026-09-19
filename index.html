@@ -43,8 +43,12 @@
 <main id="top">
 
   <!-- ─────────────────────────────────────────────────────────── hero ── -->
-  <section class="hero">
-    <div class="hero__glow" aria-hidden="true"></div>
+  <!-- Full-bleed band carries the glow; the grid inside stays at max width.
+       Clipping the glow to the centred grid left a hard-edged rectangle on
+       wide screens. -->
+  <section class="heroBand">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero">
 
     <div class="hero__inner">
       <p class="eyebrow reveal">Built for founders · Android</p>
@@ -85,6 +89,7 @@
         <span>My Personal Operating System</span>
       </div>
     </div>
+  </div>
   </section>
 
   <!-- ───────────────────────────────────────────────────── the problem ── -->

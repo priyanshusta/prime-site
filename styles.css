@@ -39,6 +39,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* Also on html, not just body: with it on body alone the document still
+     reports a width wider than the screen, and mobile browsers respond by
+     zooming the whole page out to fit. */
+  overflow-x: clip;
   /* Anchor links land the heading below the sticky nav instead of underneath
      it. Without this, jumping to a section hides its own title. */
   scroll-padding-top: 78px;
@@ -179,6 +183,11 @@ p  { margin: 0; }
 
 /* ─────────────────────────────────────────────────────────────── hero ── */
 
+/* Full-bleed band. It owns the clipping so the glow can run edge to edge
+   without widening the document — the overhang used to push the page wider
+   than the viewport and phones zoomed the whole thing out to compensate. */
+.heroBand { position: relative; overflow: hidden; }
+
 .hero {
   position: relative;
   display: grid;
@@ -193,7 +202,7 @@ p  { margin: 0; }
 /* A soft field of colour behind the hero — the same hues the app uses, at a
    low enough opacity to read as light rather than as decoration. */
 .hero__glow {
-  position: absolute; inset: -10% -20% 0 -20%;
+  position: absolute; inset: -10% -10% 0 -10%;
   z-index: -1; pointer-events: none;
   background:
     radial-gradient(38% 42% at 18% 26%, rgba(79,142,124,.20), transparent 70%),
@@ -270,6 +279,10 @@ mark {
   gap: clamp(32px, 6vw, 84px); align-items: center;
   margin-top: 52px;
 }
+/* Grid children default to min-width:auto, so a wide child (the side-by-side
+   phones) forces its whole column past the viewport and drags the text column
+   with it — which is what was clipping the copy on narrow screens. */
+.split > * { min-width: 0; }
 
 .features { list-style: none; margin: 0; padding: 0; display: grid; gap: 26px; }
 .features li { display: flex; gap: 16px; }
@@ -421,18 +434,24 @@ mark {
 
   /* Phones sit side by side rather than stacked-and-rotated: at this width the
      overlap left the back one as an unreadable sliver, and the absolute
-     positioning reserved a block of empty space under it. */
+     positioning reserved a block of empty space under it.
+     Sized in vw and allowed to shrink, so the pair can never be wider than the
+     screen. */
   .split__shots {
     min-height: 0;
-    grid-auto-flow: column;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 0;
     padding-block: 4px;
+    overflow: visible;
   }
-  .phone { width: min(190px, 50vw); border-width: 7px; }
-  .phone--front { translate: 7% 0; rotate: -2deg; }
+  .phone { width: 43vw; max-width: 190px; border-width: 6px; flex: 0 0 auto; }
+  .phone--front { translate: 4% 0; rotate: -2deg; }
   .phone--back {
     position: relative;
-    translate: -7% 0;
+    translate: -4% 0;
     rotate: 3deg;
     scale: .9;
   }
